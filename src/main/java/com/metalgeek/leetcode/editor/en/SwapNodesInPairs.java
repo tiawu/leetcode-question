@@ -11,9 +11,9 @@
 // 
 //
 
-package com.shuzijun.leetcode.editor.en;
+package com.metalgeek.leetcode.editor.en;
 
-import com.shuzijun.leetcode.ListNode;
+import com.metalgeek.leetcode.ListNode;
 
 public class SwapNodesInPairs {
     public static void main(String[] args) {

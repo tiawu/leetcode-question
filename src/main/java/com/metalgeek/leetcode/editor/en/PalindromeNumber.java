@@ -28,7 +28,7 @@
 // Coud you solve it without converting the integer to a string? 
 //
 
-package com.shuzijun.leetcode.editor.en;
+package com.metalgeek.leetcode.editor.en;
 
 public class PalindromeNumber {
     public static void main(String[] args) {

@@ -33,7 +33,7 @@
 //P     I 
 //
 
-package com.shuzijun.leetcode.editor.en;
+package com.metalgeek.leetcode.editor.en;
 public class ZigzagConversion{
     public static void main(String[] args) {
          Solution solution = new ZigzagConversion().new Solution();

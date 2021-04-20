@@ -17,7 +17,7 @@
 // 
 //
 
-package com.shuzijun.leetcode.editor.en;
+package com.metalgeek.leetcode.editor.en;
 
 import java.util.ArrayList;
 import java.util.Arrays;

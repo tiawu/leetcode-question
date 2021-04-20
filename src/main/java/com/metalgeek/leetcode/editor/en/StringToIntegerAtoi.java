@@ -56,7 +56,7 @@
 //             Thefore INT_MIN (−231) is returned. 
 //
 
-package com.shuzijun.leetcode.editor.en;
+package com.metalgeek.leetcode.editor.en;
 
 public class StringToIntegerAtoi {
     public static void main(String[] args) {
