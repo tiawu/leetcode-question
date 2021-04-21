@@ -23,3 +23,5 @@
 hs_err_pid*
 .idea/
 target/
+src/main/java/com/metalgeek/leetcode/editor/cn/translation.json
+src/main/java/com/metalgeek/leetcode/editor/cn/all.json

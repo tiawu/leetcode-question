@@ -41,20 +41,31 @@
 // 👍 6073 👎 0
 
 
-  package com.metalgeek.leetcode.editor.cn;
+  package com.metalgeek.leetcode.editor.cn.abandon;
 
   import com.metalgeek.leetcode.ListNode;
 
-  public class AddTwoNumbers{
+  public class AddTwoNumbers {
       public static void main(String[] args) {
-          Solution solution = new AddTwoNumbers().new Solution();
+           Solution solution = new AddTwoNumbers().new Solution();
 
+//           ListNode l1 = new ListNode(2);
+//           l1.next = new ListNode(4);
+//           l1.next.next = new ListNode(3);
+//
+//          ListNode l2 = new ListNode(5);
+//          l2.next = new ListNode(6);
+//          l2.next.next = new ListNode(4);
+//
           ListNode l1 = new ListNode(9);
 
           ListNode l2 = new ListNode(1);
           for(int i = 0; i< 9 ; i++) {
               solution.addVal(l2, 9);
           }
+//          l2.next = new ListNode(9);
+//          l2.next.next = new ListNode(9);
+
 
           ListNode ret = solution.addTwoNumbers(l1, l2);
           System.out.println( ret );
@@ -78,21 +89,39 @@ class Solution {
         node.next = new ListNode(val);
         return node;
     }
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode root = new ListNode(0), node = root;
-        int carry = 0;
-        int val = 0;
-        while(l1 != null || l2 != null || carry > 0) {
-            val = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
-            carry = val / 10;
-            node.next = new ListNode(val % 10);
-            node = node.next;
-            l1 = l1 == null ? null : l1.next;
-            l2 = l2 == null ? null : l2.next;
+    public long addOneList(ListNode l) {
+        long sum = 0;
+        int i = 0;
+        while(l!=null) {
+            sum += l.val * Math.pow(10, i);
+            l = l.next;
+            i++;
         }
+        return sum;
+    }
+    public ListNode getList(long val) {
+        ListNode rootNode = new ListNode((int)(val % 10)), node= rootNode;
+        while(val / 10 > 0) {
+            val = val / 10;
+            ListNode node1 = new ListNode((int)(val % 10));
+            node.next = node1;
+            node = node1;
+        }
+        return rootNode;
+    }
 
-        return root.next;
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        long s1 = addOneList(l1), s2 = addOneList(l2);
+        return getList(s1 + s2);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
-}
+
+
+//      解答失败:
+//      测试用例:[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+//              [5,6,4]
+//      测试结果:[-4]
+//      期望结果:[6,6,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+//      stdout:
+  }
