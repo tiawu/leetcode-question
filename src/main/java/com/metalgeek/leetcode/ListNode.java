@@ -19,4 +19,13 @@ public class ListNode {
         }
         return sb.toString();
     }
+
+    public ListNode addVal(int val) {
+        ListNode temp = this;
+        while(temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = new ListNode(val);
+        return temp.next;
+    }
 }
