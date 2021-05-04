@@ -36,7 +36,8 @@
 
 package com.metalgeek.leetcode.editor.cn;
 
-import javax.swing.tree.TreeNode;
+
+import com.metalgeek.leetcode.TreeNode;
 
 public class ConvertSortedArrayToBinarySearchTree{
   public static void main(String[] args) {

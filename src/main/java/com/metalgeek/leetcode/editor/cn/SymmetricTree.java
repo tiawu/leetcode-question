@@ -33,7 +33,8 @@
 
 package com.metalgeek.leetcode.editor.cn;
 
-import javax.swing.tree.TreeNode;
+import com.metalgeek.leetcode.TreeNode;
+
 import java.util.Stack;
 
 public class SymmetricTree{
