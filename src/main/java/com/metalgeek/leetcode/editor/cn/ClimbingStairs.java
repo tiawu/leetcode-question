@@ -32,7 +32,7 @@ public class ClimbingStairs{
 
          long t0 = System.currentTimeMillis();
          // Call solution here
-         System.out.println(solution.climbStairs(1000));
+         System.out.println(solution.climbStairs(100));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -40,11 +40,14 @@ public class ClimbingStairs{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int climbStairs(int n) {
-        switch(n){
-            case 0: return 1;
-            case 1: return 1;
+        int[] stairs = new int[n+1];
+        stairs[0]=1;
+        stairs[1]=1;
+
+        for(int i =2; i <= n; i++) {
+            stairs[i] = stairs[i-1] + stairs[i-2];
         }
-        return climbStairs(n-1) + climbStairs(n-2);
+        return stairs[n];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
