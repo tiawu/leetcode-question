@@ -53,7 +53,7 @@
 
           ListNode l2 = new ListNode(1);
           for(int i = 0; i< 9 ; i++) {
-              solution.addVal(l2, 9);
+              l2.addVal(9);
           }
 
           ListNode ret = solution.addTwoNumbers(l1, l2);
@@ -72,13 +72,11 @@
  * }
  */
 class Solution {
-    public ListNode addVal(ListNode node, int val) {
-        while(node != null && node.next != null)
-            node = node.next;
-        node.next = new ListNode(val);
-        return node;
-    }
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        return iterate(l1, l2);
+    }
+
+    public ListNode iterate(ListNode l1, ListNode l2) {
         ListNode root = new ListNode(0), node = root;
         int carry = 0;
         int val = 0;
