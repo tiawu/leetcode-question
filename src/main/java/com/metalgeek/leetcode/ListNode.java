@@ -11,6 +11,15 @@ public class ListNode {
         val = x;
     }
 
+    static public ListNode fromArray(int[] arr) {
+        ListNode head = new ListNode(0);
+        ListNode node = head;
+        for(int num : arr) {
+            node = node.addVal(num);
+        }
+        return head.next;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder().append(val);
