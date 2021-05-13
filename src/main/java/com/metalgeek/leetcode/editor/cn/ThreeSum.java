@@ -46,9 +46,17 @@ public class ThreeSum{
     public static void main(String[] args) {
          Solution solution = new ThreeSum().new Solution();
 
+         int [] test1 = new int[]{-1,0,1,2,-1,-4};
+        int [] test2 = new int[]{0,0,0};
+        int [] test3 = new int[]{1,2,-2,-1};
+        int [] test4 = new int[]{0,0,0,0};
+
          long t0 = System.currentTimeMillis();
          // Call solution here
-         System.out.println("");
+        System.out.println(solution.threeSum(test1));
+        System.out.println(solution.threeSum(test2));
+        System.out.println(solution.threeSum(test3));
+        System.out.println(solution.threeSum(test4));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -59,28 +67,29 @@ class Solution {
         List<List<Integer>> res = new LinkedList<>();
         Arrays.sort(nums);
 
-        int len = nums.length, leni = len - 2, lenj = len -1;
-        int numi = 0, numj, numk;
+        int len = nums.length, len1 = len -1, k, numk, tmp;
 
-        for(int i=0; i < leni; i++){
-            if(i >0 && nums[i] == numi) {
+        for(int i=0; i < len1; i++){
+            if(nums[i] > 0) {
+                continue;
+            }else if(i >0 && nums[i] == nums[i-1]) {
                 continue;
             }
 
-            numi = nums[i];
-            int k = ;
+            k = len1;
+            tmp = -nums[i];
 
+            for(int j= i + 1; j < len1; j++) {
+                if(j > i + 1 && nums[j] == nums[j-1]) {
+                    continue;
+                }
 
-            for(int j= i + 1; j < lenj; j++) {
-                numj = nums[j];
-                numk = 0 - numi - numj;
-                if(map.containsKey(numk)) {
-                    Set<Integer> kIndices = map.get(numk);
-                    for(int index : kIndices) {
-                        if(index > j) {
-                            res.add(Arrays.asList(numi, numj, numk));
-                        }
-                    }
+                numk = tmp - nums[j];
+                while( k > j && nums[k] > numk) {
+                    k--;
+                }
+                if(k != j && nums[k] == numk) {
+                    res.add(Arrays.asList(nums[i], nums[j], numk));
                 }
             }
         }
