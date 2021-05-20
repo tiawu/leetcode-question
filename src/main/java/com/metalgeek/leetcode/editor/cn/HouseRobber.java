@@ -41,7 +41,8 @@ public class HouseRobber{
 
          long t0 = System.currentTimeMillis();
          // Call solution here
-         System.out.println(solution.rob(new int[]{1,2,3,1}));
+//        System.out.println(solution.rob(new int[]{1,2,3,1}));
+        System.out.println(solution.rob(new int[]{1,1}));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -58,15 +59,14 @@ class Solution {
         }
 
         // 动态规划, f(n) = max(f(n-2) + n , f(n-1))
-//        int[] f = new int[len];
-//        f[0] = nums[0];
-//        f[1] = Math.max(nums[0], nums[1]);
         int n1 = nums[0], n2 = Math.max(nums[0], nums[1]);
 
         for(int i = 2; i < len; i++) {
-            f[i] = Math.max(f[i-2] + nums[i], f[i-1]);
+            int tmp = Math.max(n1 + nums[i], n2);
+            n1 = n2;
+            n2 = tmp;
         }
-        return f[len -1];
+        return n2;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
