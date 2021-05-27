@@ -26,7 +26,7 @@ import java.util.*;
 
 public class FlattenNestedListIterator{
     public static void main(String[] args) {
-         Solution solution = new FlattenNestedListIterator().new Solution();
+//         Solution solution = new FlattenNestedListIterator().new Solution();
 
          long t0 = System.currentTimeMillis();
          // Call solution here
