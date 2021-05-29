@@ -75,26 +75,19 @@ public class MergeTwoSortedLists{
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode root= new ListNode(1), curr = root, temp;
-        while(l1 != null || l2 != null) {
-            if(l1 != null && l2 != null) {
-                if(l1.val >= l2.val) {
-                    curr.next = l2;
-                    curr = curr.next;
-                    l2 = l2.next;
-                }else {
-                    curr.next = l1;
-                    curr = curr.next;
-                    l1 = l1.next;
-                }
-            }else if (l1 == null) {
+        ListNode root= new ListNode(1), curr = root;
+        while(l1 != null && l2 != null) {
+            if(l1.val >= l2.val) {
                 curr.next = l2;
-                break;
+                curr = curr.next;
+                l2 = l2.next;
             }else {
                 curr.next = l1;
-                break;
+                curr = curr.next;
+                l1 = l1.next;
             }
         }
+        curr.next = l1 == null ? l2 : l1;
         return root.next;
     }
 }
