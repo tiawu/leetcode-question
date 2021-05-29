@@ -36,9 +36,7 @@
 
 package com.metalgeek.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class KthSmallestElementInASortedMatrix{
   public static void main(String[] args) {
@@ -55,6 +53,41 @@ public class KthSmallestElementInASortedMatrix{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
+//        return arraySort(matrix, k);
+        // 每次重新构建数组的开始其实不小的, 所以效率可能还不如全加起来以后进行下标到k-1的快速排序, 甚至不如全排序
+        return mergeSort(matrix, k);
+    }
+
+    public int mergeSort(int[][] matrix, int k) {
+        // 使用小根堆进行归并排序, 只要排出第k小的数字即可
+        int len = matrix.length;
+        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                // 两个数组比较, 数组的头一个元素是原数组中某一行中的一个节点的值
+                return o1[0] - o2[0];
+            }
+        });
+        for (int i = 0; i < len; i++) {
+            // 构造一个新数组, 也可以用对象如Tuple或者坐标组合例如Point.x/y代替, 为方便比较还是用包含元素的值和二维下标的三元组
+            queue.offer(new int[] {matrix[i][0], i, 0});
+        }
+
+        for(int i=0; i < k-1; i++) {
+            // 堆排序里重点是如何在取出最小元素以后将剩余元素加回堆里, 借助之前的三元组元素往后找,
+            // 注意单个数组不要越界, 如果越界了说明这一行已经跑完了, 就不要再加回队列里了
+            int[] arr = queue.poll();
+            if(arr[2] < len -1) {
+                // 还没有跑到行尾, 将该行的下标向后移动一格
+                queue.offer(new int[]{ matrix[arr[1]][arr[2]+1], arr[1], arr[2] +1 });
+            }
+        }
+
+        // 完成扫描后队首就是第k小的元素
+        return queue.poll()[0];
+    }
+
+    public int arraySort(int[][] matrix, int k) {
         int len = matrix.length;
         int[] res = new int[len * len];
         for (int i =0; i < len; i++){
@@ -62,19 +95,6 @@ class Solution {
         }
         Arrays.sort(res);
         return res[k-1];
-//        int tmp = Integer.MIN_VALUE;
-//        List<Integer> list = new ArrayList<>(k);
-//        len = res.length;
-//        for (int j =0; j < len; j++) {
-//            if(res[j] > tmp) {
-//                tmp = res[j];
-//                list.add(tmp);
-//                if(list.size() == k) {
-//                    return tmp;
-//                }
-//            }
-//        }
-//        return -1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
