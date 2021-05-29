@@ -50,17 +50,22 @@ package com.metalgeek.leetcode.editor.cn;
 
 import com.metalgeek.leetcode.ListNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class MergeKSortedLists{
     public static void main(String[] args) {
          Solution solution = new MergeKSortedLists().new Solution();
 
-         long t0 = System.currentTimeMillis();
+        ListNode l1 = ListNode.fromArray(new int[]{1,3,5});
+        ListNode l2 = ListNode.fromArray(new int[]{2,4,6});
+
+//        ListNode[] lists = new ListNode[]{l1, l2};
+
+        ListNode[] lists = new ListNode[]{null};
+
+        long t0 = System.currentTimeMillis();
          // Call solution here
-         System.out.println("");
+         System.out.println(solution.mergeKLists(lists));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -78,11 +83,41 @@ public class MergeKSortedLists{
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
+        // 归并排序的性能比堆排序要好
         return recurseMerge(lists, 0, lists.length-1);
+//        return sequencialMerge(lists);
+//        return queueMerge(lists);
 
     }
 
+    public ListNode queueMerge(ListNode[] lists) {
+        // 利用小根堆进行排序
+        PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode o1, ListNode o2) {
+                return o1.val - o2.val;
+            }
+        });
+        for(ListNode node: lists) {
+            // 空节点要过滤掉
+            if(node!=null) {
+                queue.offer(node);
+            }
+        }
+        ListNode head = new ListNode(-1), pre = head;
+        while(!queue.isEmpty()){
+            // 利用小根堆特性, 先从队列取最小的节点加入进来, 然后把节点的子节点加进来(空节点要过滤掉)
+            pre.next = queue.poll();
+            pre = pre.next;
+            if(pre.next != null) {
+                queue.offer(pre.next);
+            }
+        }
+        return head.next;
+    }
+
     public ListNode recurseMerge(ListNode [] list , int i, int j) {
+        // 分治法进行归并排序
         if(i > j) {
             return null;
         }
@@ -94,13 +129,27 @@ class Solution {
         return merge(recurseMerge(list, i, mid), recurseMerge(list, mid+1, j));
     }
 
+    public ListNode sequencialMerge(ListNode[] lists) {
+        // 顺序排序
+        int len = lists.length;
+        if(len == 0)
+            return null;
+        if(len == 1)
+            return lists[0];
+
+        for(int i =lists.length -1; i > 0; i --) {
+            lists[0] = merge(lists[0], lists[i]);
+        }
+        return lists[0];
+    }
+
     public ListNode merge(ListNode list1, ListNode list2) {
         if(list1 == null || list2 == null) {
             return list1 == null ? list2 : list1;
         }
         ListNode dummyHead = new ListNode(-1);
         ListNode pre = dummyHead;
-        while(list1 != null || list2 != null) {
+        while(list1 != null && list2 != null) {
             if(list1.val < list2.val) {
                 pre.next = list1;
                 list1 = list1.next;
