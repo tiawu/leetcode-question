@@ -71,7 +71,35 @@ class Solution {
         // 动态规划 91ms, 空间复杂度O(n2)
 //        return dp(s);
         // 中心扩展 11ms, 空间复杂度O(1)
-        return center(s);
+//        return center(s);
+        return center2(s);
+    }
+
+    public String center2(String s) {
+        if(s == null || s.length() == 0) {
+            return "";
+        }
+        int strLen = s.length(), l, r, minI = strLen -1, maxLen = 1;
+        char[] str = s.toCharArray();
+        for(l = 0; l < strLen; l++) {
+            int len = expandString(str, l, l);
+            len = Math.max(len, expandString(str, l, l +1));
+            if(len > maxLen) {
+                maxLen = len;
+                minI = l - (len -1) /2;
+            }
+        }
+        return s.substring(minI, minI + maxLen);
+    }
+
+    // 中心扩展辅助函数, 返回最长扩展的子串长度
+    public int expandString(char[] str, int l, int r) {
+        int len = str.length;
+        while(l >= 0 && r < len && str[l] == str[r]) {
+            l--; r++;
+        }
+        // 循环跳出时已经多扩展了2个, 因此回文长度为 r-l+1 -2 = r-l-1;
+        return r - l -1;
     }
 
     public String center(String s) {
