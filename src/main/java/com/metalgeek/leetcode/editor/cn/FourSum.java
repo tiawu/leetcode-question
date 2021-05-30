@@ -58,28 +58,32 @@ class Solution {
         Arrays.sort(nums);
 
         for(int i =0; i<len3; i++) {
-            while(i>0 && i < len3 &&nums[i] == nums[i-1]) {
-                i++;
-            }
+//            while(i>0 && i < len3 &&nums[i] == nums[i-1]) {
+//                i++;
+//            }
+            if(i >0 && nums[i] == nums[i-1])
+                continue;
             for(int j =i+1; j<len2; j++) {
-                while(j>i+1 && j < len2 && nums[j] == nums[j-1]) {
-                    j++;
-                }
+//                while(j>i+1 && j < len2 && nums[j] == nums[j-1]) {
+//                    j++;
+//                }
+                if (j>i+1 && nums[j] == nums[j-1])
+                    continue;
                 int sum1 = nums[i] + nums[j];
 
                 // 用双指针减少一重循环, 约20ms
                 int k = j+1, l = len -1;
                 while(k < l) {
                     int sum = sum1+ nums[k] + nums[l];
-                    if(sum == target) {
-                        List<Integer> list = Arrays.asList(nums[i], nums[j], nums[k], nums[l]);
-                        if(!res.contains(list)) {
-                            res.add(list);
-                        }
-                        k++;
-                    }else if(sum > target) {
-                        l--;
+                    if(sum > target) {
+                        while (k < l && nums[l] == nums[--l]);
+                    }else if(sum < target){
+                        while (k < l && nums[k] == nums[++k]);
                     }else {
+                        List<Integer> list = Arrays.asList(nums[i], nums[j], nums[k], nums[l]);
+//                        if(!res.contains(list)) {
+                            res.add(list);
+//                        }
                         k++;
                     }
                 }
