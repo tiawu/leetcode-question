@@ -56,7 +56,8 @@ public class LongestPalindromicSubstring{
 
          long t0 = System.currentTimeMillis();
          // Call solution here
-         System.out.println(solution.longestPalindrome("babad"));
+        System.out.println(solution.longestPalindrome("babad"));
+        System.out.println(solution.longestPalindrome("bb"));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -67,21 +68,62 @@ class Solution {
         if(s.length() ==0) {
             return "";
         }
+        // 动态规划 91ms, 空间复杂度O(n2)
+//        return dp(s);
+        // 中心扩展 11ms, 空间复杂度O(1)
+        return center(s);
+    }
+
+    public String center(String s) {
+        int strLen = s.length(), minI = strLen -1, maxLen = 1, l, r;
+        char[] str = s.toCharArray();
+        for(l=0; l < strLen; l++) {
+            int i = l -1, j = l +1;
+            while(i>=0 && j < strLen) {
+                if(str[i] == str[j]) {
+                    int len = j-i+1;
+                    if(len > maxLen) {
+                        maxLen = len;
+                        minI = i;
+                    }
+                    i--;j++;
+                    continue;
+                }
+                break;
+            }
+        }
+        for(l=0, r =1; r < strLen; l++, r++) {
+            int i = l, j = r;
+            while(i>=0 && j < strLen) {
+                if(str[i] == str[j]) {
+                    int len = j-i+1;
+                    if(len > maxLen) {
+                        maxLen = len;
+                        minI = i;
+                    }
+                    i--;j++;
+                    continue;
+                }
+                break;
+            }
+        }
+        return s.substring(minI, minI + maxLen);
+    }
+
+    public String dp(String s) {
         // 预处理动态规划
         int n = s.length(), minI = n -1, maxLen = 1, len;
         boolean[][] f = new boolean[n][n];
         for (int i = 0; i < n; ++i) {
             // 每个单字母都为回文
             f[i][i] = true;
-            // from 分割回文串, 似乎有问题?
-//            Arrays.fill(f[i], true);
         }
 
         char[] str = s.toCharArray();
 
         for(int i = n-1; i >= 0; i--) {
             for(int j = i+1 ; j < n; j++) {
-                // 收尾字母相同, 且: 1. 字符串长度为2以下, 或 2.内缩字符串为回文串
+                // 首尾字母相同, 且: 1. 字符串长度为2以下, 或 2.内缩字符串为回文串
                 if(str[i] == str[j] && (f[i+1][j-1] ||j - i <2)) {
                     f[i][j] = true;
                     len = j - i + 1;
@@ -99,10 +141,6 @@ class Solution {
             }
         }
 
-//        for(i=0; i < n; i++) {
-//            boolean[] arr = f[i];
-//            System.out.println(Arrays.toString(arr));
-//        }
         return s.substring(minI, minI + maxLen);
     }
 }
