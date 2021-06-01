@@ -79,7 +79,48 @@ class Solution {
         // API直接用
 //        Arrays.sort(nums);
         // 手写一个快排
-        quickSort(nums, 0, nums.length -1);
+//        quickSort(nums, 0, nums.length -1);
+        qs(nums, 0, nums.length -1);
+    }
+
+    // 交换辅助函数
+    public void swap(int[] nums, int src, int dest) {
+        // 额外空间交换.
+        int tmp = nums[src];
+        nums[src] = nums[dest];
+        nums[dest] = tmp;
+
+        //也可以用异或算法, 不过效率不见得高
+//      nums[src] = nums[src] ^ nums[dest];
+//      nums[dest] = nums[dest] ^ nums[src];
+//      nums[src] = nums[src] ^ nums[dest];
+    }
+
+    public void qs(int[] nums, int l, int r) {
+        if(l < r) {
+            // 交换首位和中间位置
+            swap(nums, l, (l + r) >> 1);
+
+            int tmp = nums[l], i = l, j = r;
+            while(i < j) {
+                while(i < j && nums[j] >= tmp) {
+                    j--;
+                }
+                if(i < j) {
+                    nums[i++] = nums[j];
+                }
+
+                while(i < j && nums[i] <= tmp) {
+                    i++;
+                }
+                if(i < j) {
+                    nums[j--] = nums[i];
+                }
+            }
+            nums[i] = tmp;
+            qs(nums, l, i-1);
+            qs(nums, j+1, r);
+        }
     }
 
     // 快速排序, 参数左右边界
@@ -114,18 +155,6 @@ class Solution {
         }
     }
 
-    // 交换辅助函数
-    public void swap(int[] nums, int src, int dest) {
-        // 额外空间交换.
-        int tmp = nums[src];
-        nums[src] = nums[dest];
-        nums[dest] = tmp;
-
-        //也可以用异或算法, 不过效率不见得高
-//        nums[src] = nums[src] ^ nums[dest];
-//        nums[dest] = nums[dest] ^ nums[src];
-//        nums[src] = nums[src] ^ nums[dest];
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
