@@ -49,7 +49,7 @@ import java.util.PriorityQueue;
 
 public class KthLargestElementInAStream{
   public static void main(String[] args) {
-      KthLargest solution = new KthLargestElementInAStream().new KthLargest();
+//      KthLargest solution = new KthLargestElementInAStream().new KthLargest();
        
        long t0 = System.currentTimeMillis();
        // Call solution here
