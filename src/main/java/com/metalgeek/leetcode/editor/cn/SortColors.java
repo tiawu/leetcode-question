@@ -80,8 +80,35 @@ class Solution {
 //        Arrays.sort(nums);
         // 手写一个快排
 //        quickSort(nums, 0, nums.length -1);
-        qs(nums, 0, nums.length -1);
+        qs1(nums, 0, nums.length -1);
     }
+
+    public void qs1(int[] nums, int l, int r) {
+        if(l < r) {
+            swap(nums, l, (l + r) / 2);
+            int tmp = nums[l], i = l, j = r;
+            while (i < j) {
+                while(i < j && nums[j] >= tmp) {
+                    j--;
+                }
+                if(i < j) {
+                    nums[i] = nums[j];
+                    i++;
+                }
+                while(i < j && nums[i] <= tmp) {
+                    i++;
+                }
+                if(i < j) {
+                    nums[j] = nums[i];
+                    j--;
+                }
+            }
+            nums[i] = tmp;
+            qs1(nums, l, i-1);
+            qs1(nums, i +1, r);
+        }
+    }
+
 
     // 交换辅助函数
     public void swap(int[] nums, int src, int dest) {
