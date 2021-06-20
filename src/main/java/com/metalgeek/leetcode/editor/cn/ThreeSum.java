@@ -67,6 +67,44 @@ class Solution {
         List<List<Integer>> res = new LinkedList<>();
         Arrays.sort(nums);
 
+        // 先排序, 选中一个数, 再从后面挑两个数(双指针), 数字相同的跳过.
+        for(int i=0; i< nums.length -1; i++) {
+            // 目标和为0, 因此选择第一个数要求为负数
+            if(nums[i] > 0) {
+                continue;
+            }else if (i > 0 && nums[i] == nums[i-1]) {
+                // 跳过相同的数字
+                continue;
+            }
+
+            // 转化为两数相加问题, 目标和为-nums[i]
+            int target = - nums[i];
+
+            for(int j = i +1, k = nums.length - 1; j < nums.length; j++) {
+                // 跳过相同数字
+                if(j > i + 1 && nums[j] == nums[j-1]) {
+                    continue;
+                }
+
+                int numk = target - nums[j];
+                while (k > j && nums[k] > numk) {
+                    k--;
+                }
+
+                if(k != j && nums[k] == numk) {
+                    // 找到一条答案
+                    res.add(Arrays.asList(nums[i], nums[j], numk));
+                }
+            }
+        }
+        return res;
+
+    }
+
+    public List<List<Integer>> solve1(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        Arrays.sort(nums);
+
         int len = nums.length, len1 = len -1, k, numk, tmp;
 
         for(int i=0; i < len1; i++){
