@@ -52,6 +52,30 @@ public class LongestCommonPrefix{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public String longestCommonPrefix(String[] strs) {
+        if(strs.length==0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        String str = strs[0];
+        for(int i = 0; i < str.length(); i++) {
+            boolean pass = true;
+            char c = str.charAt(i);
+            for(int j =1; j < strs.length; j++) {
+                if(strs[j].length() < i + 1 || strs[j].charAt(i) != c) {
+                    pass = false;
+                    break;
+                }
+            }
+            if(pass) {
+                sb.append(c);
+            }else {
+                break;
+            }
+        }
+        return sb.toString();
+    }
+
+    public String longestCommonPrefix1(String[] strs) {
         if(strs.length ==0)
             return "";
         String s1 = strs[0];

@@ -73,8 +73,31 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return iterate(l1, l2);
+//        return iterate(l1, l2);
+        return solve1(l1, l2);
     }
+
+    public ListNode solve1(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(-1), node = dummyHead;
+        int carry = 0;
+        int val = 0;
+        while(l1 != null || l2 != null || carry > 0) {
+            val = carry;
+            if(l1 != null) {
+                val += l1.val;
+                l1 = l1.next;
+            }
+            if(l2 != null) {
+                val += l2.val;
+                l2 = l2.next;
+            }
+            node.next = new ListNode(val % 10);
+            carry = val / 10;
+            node = node.next;
+        }
+        return dummyHead.next;
+    }
+
 
     public ListNode iterate(ListNode l1, ListNode l2) {
         ListNode root = new ListNode(0), node = root;

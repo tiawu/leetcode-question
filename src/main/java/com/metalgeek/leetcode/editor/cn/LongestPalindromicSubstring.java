@@ -72,7 +72,33 @@ class Solution {
 //        return dp(s);
         // 中心扩展 11ms, 空间复杂度O(1)
 //        return center(s);
-        return center2(s);
+//        return center2(s);
+        return expCenter(s);
+    }
+
+    public int expStr(char[] str, int len, int l, int r) {
+        while (l >=0 && r < len && str[l] == str[r]) {
+            l--; r++;
+        }
+        // 注意长度要-1而不是+1, 因为已经多扩展了一组出去
+        return r - l - 1;
+    }
+    public String expCenter(String s) {
+        char[] str = s.toCharArray();
+        int len = str.length, maxLen = 0, l = len -1;
+        for(int i=0; i < len; i++) {
+            // 以单字符为中心扩展
+            int tmp = expStr(str, len, i, i);
+            // 以双字符为中心扩展
+            tmp = Math.max(expStr(str, len, i, i+1), tmp);
+            if(tmp > maxLen) {
+                maxLen = tmp;
+                // 求起始点, i = (l + r) /2 , maxLen = (r -l) +1,  (maxLen -1) /2 = (r -l) /2.
+                // 则 i - (maxLen -1) /2 = (l + r) /2 - (r -l) /2 = (l + r - r + l) /2 = l
+                l = i - (maxLen - 1) / 2;
+            }
+        }
+        return s.substring(l, l + maxLen);
     }
 
     public String center2(String s) {

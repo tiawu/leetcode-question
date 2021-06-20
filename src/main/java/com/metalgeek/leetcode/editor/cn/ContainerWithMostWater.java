@@ -63,6 +63,20 @@ public class ContainerWithMostWater{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxArea(int[] height) {
+        int res = 0;
+
+        for(int i =0, j = height.length -1; i < j;) {
+            int square = (j-i) * Math.min(height[i], height[j]);
+            res = Math.max(res, square);
+            if(height[i] > height[j]) {
+                j--;
+            }else {
+                i++;
+            }
+        }
+        return res;
+    }
+    public int maxArea1(int[] height) {
         // 下标为x轴坐标啊, 值为y轴坐标
         // 求min(height[i], height[j]) * (j-i)最大值
 

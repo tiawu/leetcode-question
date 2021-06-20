@@ -61,6 +61,18 @@ class Solution {
             y = y * 10 + x % 10;
             x = x / 10;
         }
+        if(y > Integer.MAX_VALUE || y < Integer.MIN_VALUE) {
+            return 0;
+        }
+        return (int)y;
+    }
+
+    public int reverse1(int x) {
+        long y = 0;
+        while(x != 0) {
+            y = y * 10 + x % 10;
+            x = x / 10;
+        }
 
         return y >= Integer.MIN_VALUE && y <= Integer.MAX_VALUE ? (int)y : 0;
 
