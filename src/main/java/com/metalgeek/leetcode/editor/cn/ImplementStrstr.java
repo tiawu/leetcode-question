@@ -61,6 +61,37 @@ public class ImplementStrstr{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int strStr(String haystack, String needle) {
+        if(needle.length() == 0) {
+            return 0;
+        }
+        char[] hs = haystack.toCharArray(), ns = needle.toCharArray();
+        char nss = ns[0];
+        int start = 0;
+        while(start < hs.length) {
+            if(hs[start] != nss) {
+                start++;
+                continue;
+            }
+            if(hs.length - start < ns.length) {
+                return -1;
+            }
+
+            boolean pass = true;
+            for(int i = 0; i < ns.length; i++) {
+                if(hs[start + i] != ns[i]) {
+                    pass = false;
+                    break;
+                }
+            }
+            if(pass) {
+                return start;
+            }
+            start++;
+        }
+        return -1;
+    }
+
+    public int strStr1(String haystack, String needle) {
         // 用API是最快的...
 //        return  haystack.indexOf(needle);
 

@@ -50,6 +50,23 @@ class Solution {
         back_track(new StringBuilder(), 0, 0, n, res);
         return res;
     }
+
+    public void dfs(StringBuilder sb, int numLeft, int numRight, int num, List<String> res) {
+        if(sb.length() == num << 1) {
+            res.add(sb.toString());
+        }
+        if(numLeft < num) {
+            sb.append('(');
+            dfs(sb, numLeft +1, numRight, num, res);
+            sb.deleteCharAt(sb.length() -1);
+        }
+        if(numRight < numLeft) {
+            sb.append(')');
+            dfs(sb, numLeft, numRight +1, num, res);
+            sb.deleteCharAt(sb.length() -1);
+        }
+    }
+
     // 回溯法, 合法的尝试先插入(, 再插)
     public void back_track(StringBuilder sb, int numLeft, int numRight, int num, List<String> res) {
         if(sb.length() == num * 2) {

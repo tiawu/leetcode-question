@@ -81,7 +81,32 @@ class Solution {
             default: return 'e';
         }
     }
+
     public boolean isValid(String s) {
+        Deque<Character> stack = new LinkedList<>();
+        int len = s.length();
+        for(int i =0; i < len; i++) {
+            char c = s.charAt(i);
+            switch (c) {
+                case '{':
+                case '[':
+                case '(':
+                    stack.push(c);
+                    break;
+                case '}':
+                case ']':
+                case ')':
+                    if(!stack.isEmpty() && stack.pop() == getChar(c)) {
+                        break;
+                    }else {
+                        return false;
+                    }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public boolean isValid1(String s) {
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
