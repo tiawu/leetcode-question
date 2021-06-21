@@ -55,6 +55,51 @@ class Solution {
         if(board == null || board.length == 0) {
             return;
         }
+        int m = board.length-1, n = board[0].length -1;
+        for(int i =0; i <= m; i++) {
+            if(board[i][0] == 'O') {
+                dfs1(board, i, 0);
+            }
+            if(board[i][n] == 'O') {
+                dfs1(board, i, n);
+            }
+        }
+        for(int j =0; j <= n; j++) {
+            if(board[0][j] == 'O') {
+                dfs1(board, 0, j);
+            }
+            if(board[m][j] == 'O') {
+                dfs1(board, m, j);
+            }
+        }
+
+        for(int i =0; i<=m; i++) {
+            for(int j=0; j<= n; j++) {
+                switch (board[i][j]) {
+                    case 'M' : board[i][j] = 'O'; break;
+                    case 'O' : board[i][j] = 'X'; break;
+                    default: break;
+                }
+            }
+        }
+    }
+
+    public void dfs1(char[][] board, int i, int j) {
+        if(i < 0 || i >= board.length || j < 0 || j >=board[0].length || board[i][j] != 'O') {
+            return;
+        }
+        board[i][j] = 'M';
+        dfs1(board,i,j+1);
+        dfs1(board,i,j-1);
+        dfs1(board,i+1,j);
+        dfs1(board,i-1,j);
+    }
+
+
+    public void solve1(char[][] board) {
+        if(board == null || board.length == 0) {
+            return;
+        }
         int m = board.length, n = board[0].length;
         // 以下按边缘进行搜索, 比直接双循环 m * n 变为 2(m + n), 降低搜索起点的数量
         for(int i =0; i < m; i++) {

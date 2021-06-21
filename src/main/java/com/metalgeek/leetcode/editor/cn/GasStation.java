@@ -152,7 +152,7 @@ class Solution {
                 return false;
             }
         }
-        return tank >= 0;
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -58,8 +58,8 @@ public class FindFirstAndLastPositionOfElementInSortedArray{
        // Call solution here
 //      System.out.println(Arrays.asList(solution.searchRange(test1, 8)));
 //      System.out.println(Arrays.asList(solution.searchRange(test2, 6)));
-//      System.out.println(Arrays.asList(solution.searchRange(test3, 1)));
-      System.out.println(Arrays.asList(solution.searchRange(test4, 4)));
+      System.out.println(Arrays.asList(solution.searchRange(test3, 1)));
+//      System.out.println(Arrays.asList(solution.searchRange(test4, 4)));
 
       long t1 = System.currentTimeMillis();
        System.out.println("time used " + (t1-t0));
@@ -98,7 +98,7 @@ class Solution {
     }
 
 
-    public int[] solve1(int[] nums, int target) {
+    public int[] temp3(int[] nums, int target) {
         if(nums.length ==0) {
             return new int[]{-1, -1};
         }

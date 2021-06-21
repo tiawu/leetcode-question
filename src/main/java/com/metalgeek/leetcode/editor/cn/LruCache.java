@@ -58,17 +58,20 @@
 package com.metalgeek.leetcode.editor.cn;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class LruCache{
     public static void main(String[] args) {
         LRUCache solution = new LRUCache(2);
+        int ret;
         solution.put(2, 1);
         solution.put(2, 2);
-        solution.get(2);
+        ret = solution.get(2);
         solution.put(1,1);
         solution.put(4,1);
-        solution.get(2);
+       ret =  solution.get(2);
 
          long t0 = System.currentTimeMillis();
          // Call solution here
@@ -96,6 +99,38 @@ class LRUCache {
     }
 
     int capacity;
+
+    // LinkedList版, 会超时
+//    Map<Integer, Integer> map;
+//    List<String> list;
+//    public LRUCache(int capacity) {
+//        this.capacity = capacity;
+//        map = new HashMap<>();
+//        list = new LinkedList<>();
+//    }
+//
+//    public void updateKey(int key) {
+//        String sKey = String.valueOf(key);
+//        list.remove(sKey);
+//        list.add(sKey);
+//    }
+//    public int get(int key) {
+//        int res = map.getOrDefault(key, -1);
+//        if(res != -1) {
+//            updateKey(key);
+//        }
+//        return res;
+//    }
+//
+//    public void put(int key, int value) {
+//        map.put(key, value);
+//        updateKey(key);
+//        if(list.size() > capacity) {
+//            map.remove(Integer.valueOf(list.remove(0)));
+//        }
+//    }
+
+      // BiDirectNode版
     Map<Integer, BiDirectNode> keyMap;
     BiDirectNode head, tail;
 
