@@ -30,6 +30,17 @@ public class MoveZeroes{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void moveZeroes(int[] nums) {
+        int i =0, j = 0, len = nums.length;
+        while(i < len) {
+            if(nums[i] !=0) {
+                int tmp = nums[j];
+                nums[j++] = nums[i];
+                nums[i] = tmp;
+            }
+            i++;
+        }
+    }
+    public void solve1(int[] nums) {
         int i = 0, j= 0, tmp;
         while(i < nums.length){
             if(nums[i] !=0){

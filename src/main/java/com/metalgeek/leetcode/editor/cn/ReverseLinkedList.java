@@ -77,11 +77,19 @@ public class ReverseLinkedList{
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        return iterate(head);
+        return solve1(head);
     }
 
-    public ListNode recurse(ListNode head) {
-        return null;
+    public ListNode solve1(ListNode head) {
+        ListNode dummyHead = new ListNode(-1);
+        ListNode node = head;
+        while(node != null){
+            ListNode tmp = node.next;
+            node.next = dummyHead.next;
+            dummyHead.next = node;
+            node = tmp;
+        }
+        return dummyHead.next;
     }
 
     public ListNode iterate(ListNode head) {
