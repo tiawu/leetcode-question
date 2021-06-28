@@ -51,20 +51,54 @@ public class FindFirstAndLastPositionOfElementInSortedArray{
        Solution solution = new FindFirstAndLastPositionOfElementInSortedArray().new Solution();
 
        int[] test1 = new int[]{5,7,7,8,8,10}; // 8
-//       int[] test2 = new int[]{5,7,7,8,8,10}; // 6
+       int[] test2 = new int[]{5,7,7,8,8,10}; // 6
       int[] test3 = new int[]{1}; // 6
+      int[] test4 = new int[]{1,4};
        long t0 = System.currentTimeMillis();
        // Call solution here
 //      System.out.println(Arrays.asList(solution.searchRange(test1, 8)));
 //      System.out.println(Arrays.asList(solution.searchRange(test2, 6)));
       System.out.println(Arrays.asList(solution.searchRange(test3, 1)));
+//      System.out.println(Arrays.asList(solution.searchRange(test4, 4)));
 
-       long t1 = System.currentTimeMillis();
+      long t1 = System.currentTimeMillis();
        System.out.println("time used " + (t1-t0));
   }
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] searchRange(int[] nums, int target) {
+        if(nums.length == 0) {
+            return new int[] {-1, -1};
+        }
+        int l=0, r = nums.length -1, mid=0;
+        while(l < r) {
+            mid = l + (r - l) /2;
+//            if(nums[mid] == target) {
+//                break;
+//            }else
+                if (nums[mid] >= target) {
+                r = mid;
+            }else {
+                l = mid + 1;
+            }
+        }
+        mid = l;
+        if(nums[mid] == target) {
+            l = mid; r = mid;
+            while (l >= 0 && nums[l] == nums[mid]){
+                l--;
+            }
+            while (r < nums.length && nums[r] == nums[mid]){
+                r++;
+            }
+            return new int[] {l +1, r -1};
+        }
+
+        return new int[] {-1, -1};
+    }
+
+
+    public int[] temp3(int[] nums, int target) {
         if(nums.length ==0) {
             return new int[]{-1, -1};
         }

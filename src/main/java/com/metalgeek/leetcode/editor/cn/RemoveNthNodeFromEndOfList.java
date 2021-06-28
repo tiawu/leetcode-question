@@ -73,6 +73,19 @@ class Solution {
         return twoPointer(head, n);
     }
 
+    public ListNode solve1(ListNode head, int n) {
+        ListNode fast = head, slow = head;
+        for(int i =1; i < n; i++) {
+            fast = fast.next;
+        }
+        while(fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
+
     public ListNode twoPointer(ListNode head, int n) {
         ListNode root = new ListNode(-1);
         root.next = head;

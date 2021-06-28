@@ -61,7 +61,7 @@ class Solution {
             boolean pass = true;
             char c = str.charAt(i);
             for(int j =1; j < strs.length; j++) {
-                if(strs[j].length() < i + 1 || strs[j].charAt(i) != c) {
+                if(i >= strs[j].length() || strs[j].charAt(i) != c) {
                     pass = false;
                     break;
                 }
