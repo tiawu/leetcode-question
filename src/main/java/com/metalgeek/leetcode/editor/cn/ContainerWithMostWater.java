@@ -62,7 +62,22 @@ public class ContainerWithMostWater{
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
+
     public int maxArea(int[] height) {
+        int res = 0;
+        for(int i =0, j = height.length -1; i < j;) {
+            int area = (j - i) * Math.min(height[i], height[j]);
+            res = Math.max(res, area);
+            if(height[i] > height[j]) {
+                j--;
+            }else {
+                i++;
+            }
+        }
+        return res;
+    }
+
+    public int maxArea2(int[] height) {
         int res = 0;
 
         for(int i =0, j = height.length -1; i < j;) {

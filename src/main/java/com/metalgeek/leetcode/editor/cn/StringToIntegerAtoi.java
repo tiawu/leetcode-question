@@ -118,6 +118,7 @@ public class StringToIntegerAtoi{
        
        long t0 = System.currentTimeMillis();
        // Call solution here
+      System.out.println(solution.myAtoi("-42"));
        System.out.println(solution.myAtoi("9223372036854775808"));
        
        long t1 = System.currentTimeMillis();
@@ -126,6 +127,48 @@ public class StringToIntegerAtoi{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int myAtoi(String s) {
+        char[] str = s.trim().toCharArray();
+        int len = str.length, i = 0;
+        if(len ==0) {
+            return 0;
+        }
+
+        boolean negative = false;
+        switch (str[0]) {
+            case '-' : negative = true;
+            case '+' : i++;
+                        break;
+            default: break;
+        }
+
+        long res = 0L;
+
+        while (i < len) {
+            if(res > Integer.MAX_VALUE) {
+                return res(res, negative);
+            }
+            char c = str[i];
+            if(c <= '9' && c >= '0') {
+                res = res * 10 + c - '0';
+                i++;
+            }else {
+                break;
+            }
+        }
+        return res(res, negative);
+    }
+    public int res(long res, boolean negative) {
+        if (negative) {
+            res = - res;
+        }
+        if(res < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }else if (res > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return (int) res;
+    }
+    public int myAtoi1(String s) {
         char[] str = s.trim().toCharArray();
         if(str.length == 0)
             return 0;

@@ -50,13 +50,15 @@ public class ThreeSum{
         int [] test2 = new int[]{0,0,0};
         int [] test3 = new int[]{1,2,-2,-1};
         int [] test4 = new int[]{0,0,0,0};
+        int [] test5 = new int[]{3,0,-2,-1,1,2};
 
          long t0 = System.currentTimeMillis();
          // Call solution here
-        System.out.println(solution.threeSum(test1));
-        System.out.println(solution.threeSum(test2));
-        System.out.println(solution.threeSum(test3));
-        System.out.println(solution.threeSum(test4));
+//        System.out.println(solution.threeSum(test1));
+//        System.out.println(solution.threeSum(test2));
+//        System.out.println(solution.threeSum(test3));
+//        System.out.println(solution.threeSum(test4));
+        System.out.println(solution.threeSum(test5));
 
          long t1 = System.currentTimeMillis();
          System.out.println("time used " + (t1-t0));
@@ -64,6 +66,39 @@ public class ThreeSum{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+
+        List<List<Integer>> res = new LinkedList<>();
+        int len = nums.length, len1 = len -1;
+        for(int i = 0; i < len1; i++) {
+            if(nums[i] > 0) {
+                // 已经排序过了, 当nums[i] > 0时, 后面都是大于0的
+                break;
+            }else if (i > 0 && nums[i] == nums[i-1]) {
+                // 跳过重复数字
+                continue;
+            }
+
+            int sum = - nums[i];
+            for(int j = i +1, k = len1; j < len; j++){
+                if(j > i +1 &&  nums[j-1] == nums[j]) {
+                    continue;
+                }
+
+                int numk = sum - nums[j];
+
+                while (k > j && nums[k] > numk) {
+                    k--;
+                }
+                if(k > j && nums[k] == numk) {
+                    res.add(Arrays.asList(nums[i], nums[j], numk));
+                }
+            }
+        }
+        return res;
+    }
+
+    public List<List<Integer>> threeSum1(int[] nums) {
         List<List<Integer>> res = new LinkedList<>();
         Arrays.sort(nums);
 

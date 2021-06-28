@@ -1,4 +1,4 @@
-  //给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+   //给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
 //
 // 请你将两个数相加，并以相同形式返回一个表示和的链表。
 //
@@ -74,7 +74,30 @@
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 //        return iterate(l1, l2);
-        return solve1(l1, l2);
+//        return solve1(l1, l2);
+        return solve2(l1, l2);
+    }
+    public ListNode solve2(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(-1), curr = dummyHead;
+        int carry = 0;
+        int sum = 0;
+        while(carry > 0 || l1 != null || l2 != null ) {
+            sum = carry;
+            if (l1 != null){
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            carry = sum / 10;
+            ListNode node = new ListNode(sum % 10);
+            curr.next = node;
+            curr = curr.next;
+        }
+        return dummyHead.next;
     }
 
     public ListNode solve1(ListNode l1, ListNode l2) {

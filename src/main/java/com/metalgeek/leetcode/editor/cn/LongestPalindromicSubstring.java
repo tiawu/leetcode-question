@@ -73,7 +73,31 @@ class Solution {
         // 中心扩展 11ms, 空间复杂度O(1)
 //        return center(s);
 //        return center2(s);
-        return expCenter(s);
+//        return expCenter(s);
+        return expendCenter(s);
+    }
+
+    public int expendStr(char[] str, int len, int l, int r) {
+        while (l >= 0 && r < len && str[l] == str [r]) {
+            l--;r++;
+        }
+        // 已经多扩展了一轮, 所以要-1而不是+1
+        return r - l -1;
+    }
+
+    public String expendCenter(String s) {
+        char[] str = s.toCharArray();
+        int len = s.length(), maxLen = 0, start = len -1;
+        for(int i =0; i < len; i++) {
+            int len1 = expendStr(str, len, i, i);
+            len1 = Math.max(expendStr(str, len, i, i+1), len1);
+            if(maxLen < len1) {
+                maxLen = len1;
+                start = i - (maxLen - 1)/2;
+            }
+        }
+
+        return s.substring(start, start + maxLen);
     }
 
     public int expStr(char[] str, int len, int l, int r) {
