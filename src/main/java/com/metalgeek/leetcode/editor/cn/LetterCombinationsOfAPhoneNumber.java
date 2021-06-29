@@ -70,7 +70,23 @@ class Solution {
     }
 
     public List<String> letterCombinations(String digits) {
-        return recurse(digits.toCharArray(), 0, new ArrayList<>());
+        if(digits.length() == 0) {
+            return Collections.emptyList();
+        }
+        return recurse1(digits.toCharArray(), 0, Arrays.asList(""));
+    }
+
+    public List<String> recurse1(char[] digits, int index, List<String> list) {
+        if(digits.length == index) {
+            return list;
+        }
+        List<String> newList = new LinkedList<>();
+        for(String preStr : list) {
+            for(String c : map.get(digits[index])) {
+                newList.add(preStr.concat(c));
+            }
+        }
+        return recurse1(digits, index +1, newList);
     }
 
     // 递归
