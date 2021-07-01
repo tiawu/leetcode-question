@@ -70,6 +70,15 @@ public class RemoveDuplicatesFromSortedArray{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
+        int i = 0, len = nums.length;
+        for(int j = 1; j < len; j++) {
+            if(nums[j] > nums[i]) {
+                nums[++i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+    public int removeDuplicates1(int[] nums) {
         int i =0, len = nums.length;
         for(int j =1; j < len; j++) {
             if(nums[j] > nums[i]) {

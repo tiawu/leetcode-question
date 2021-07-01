@@ -66,10 +66,25 @@ class Solution {
           matrix[i2][j2] = tmp;
       }
 
+    public void rotate(int[][] matrix) {
+          int len = matrix.length, len2 = len /2, len3 = len -1;
+          for(int i=0; i< len2; i++) {
+              for(int j=0; j< len; j++) {
+                  swap(matrix, i, j, len3 -i, j);
+              }
+          }
+
+        for(int i=0; i< len; i++) {
+            for(int j=i+1; j< len; j++) {
+                swap(matrix, i, j, j, i);
+            }
+        }
+
+    }
     // 顺时针90, 上下 + 主对角线
     // 逆时针90, 左右 + 主对角线
     // 180    , 上下 + 左右
-    public void rotate(int[][] matrix) {
+    public void rotate1(int[][] matrix) {
         int len = matrix.length, len2 = len/2;
         // 上下翻转
         for(int i =0; i <len2; i++) {

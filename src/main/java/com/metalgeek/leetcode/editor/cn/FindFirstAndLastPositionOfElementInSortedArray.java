@@ -67,6 +67,30 @@ public class FindFirstAndLastPositionOfElementInSortedArray{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] searchRange(int[] nums, int target) {
+        if(nums.length ==0) {
+            return new int[]{-1, -1};
+        }
+        int l = 0, r = nums.length - 1, mid;
+        while (l < r) {
+            mid = l + (r-l) /2;
+            if(nums[mid] < target) {
+                l = mid +1;
+            }else {
+                r = mid;
+            }
+        }
+        if(nums[l] != target) {
+            return new int[]{-1, -1};
+        }
+
+        for (r = l+1; r < nums.length; r++) {
+            if(nums[r] != nums[l]) {
+                break;
+            }
+        }
+        return new int[]{l, r-1};
+    }
+    public int[] searchRange1(int[] nums, int target) {
         if(nums.length == 0) {
             return new int[] {-1, -1};
         }

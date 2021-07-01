@@ -47,8 +47,24 @@ public class GenerateParentheses{
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> res = new LinkedList<>();
-        dfs1(new StringBuilder(), 0, 0, n, res);
+        dfs2(new StringBuilder(), 0, 0, n, res);
         return res;
+    }
+    public void dfs2(StringBuilder sb, int numLeft, int numRight, int num, List<String> res) {
+        if(sb.length() == num * 2) {
+            res.add(sb.toString());
+            return;
+        }
+        if(numLeft < num) {
+            sb.append('(');
+            dfs2(sb, numLeft +1, numRight, num, res);
+            sb.deleteCharAt(sb.length() -1);
+        }
+        if(numRight < numLeft) {
+            sb.append(')');
+            dfs2(sb, numLeft, numRight + 1, num, res);
+            sb.deleteCharAt(sb.length() -1);
+        }
     }
     public void dfs1(StringBuilder sb, int numLeft, int numRight, int num, List<String> res) {
         if(sb.length() == num *2) {
