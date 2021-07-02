@@ -58,6 +58,25 @@ public class SetMatrixZeroes{
 class Solution {
     public void setZeroes(int[][] matrix) {
         int m = matrix.length, n = matrix[0].length;
+        int[] mm = new int[m], nn = new int[n];
+        for(int i=0; i < m; i++) {
+            for(int j=0; j < n; j++) {
+                if(matrix[i][j] == 0) {
+                    mm[i] = nn[j] = 1;
+                }
+            }
+        }
+
+        for(int i=0; i < m; i++) {
+            for(int j=0; j < n; j++) {
+                if(mm[i] ==1 ||nn[j] == 1) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+    public void setZeroes1(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
         boolean row0 = false, col0 = false;
 
         for(int i=0; i< m; i++) {

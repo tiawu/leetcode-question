@@ -36,6 +36,19 @@ public class Sqrtx{
   //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int mySqrt(int x) {
+        int res =0, l = 0, r = x, mid;
+        while(l <= r) {
+            mid = l + (r - l)/2;
+            if((long)mid * mid <= x) {
+                res = mid;
+                l = mid +1;
+            }else {
+                r = mid -1;
+            }
+        }
+        return res;
+    }
+    public int mySqrt1(int x) {
         // 这样显然是不行的
 //        return (int)Math.sqrt(x);
 

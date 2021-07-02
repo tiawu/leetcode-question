@@ -68,7 +68,7 @@ public class SortColors{
        long t0 = System.currentTimeMillis();
        // Call solution here
       solution.sortColors(test1);
-       System.out.println(Arrays.asList(test1));
+       System.out.println(Arrays.deepToString(Arrays.stream(test1).boxed().toArray()));
 
        long t1 = System.currentTimeMillis();
        System.out.println("time used " + (t1-t0));
@@ -80,9 +80,37 @@ class Solution {
 //        Arrays.sort(nums);
         // 手写一个快排
 //        quickSort(nums, 0, nums.length -1);
-        qs1(nums, 0, nums.length -1);
+//        qs1(nums, 0, nums.length -1);
 //        bubbleSort(nums);
 //        insertSort(nums);
+
+//        bs(nums);
+//        is(nums);
+        qs(nums, 0, nums.length -1);
+    }
+    // 冒泡, 3ms
+    public void bs(int[] nums) {
+        int len = nums.length -1;
+        for(int i=0; i< len; i++) {
+            int len1 = len - i;
+            for(int j=0; j < len1; j++) {
+                if(nums[j] > nums[j+1]) {
+                    swap(nums, j, j+1);
+                }
+            }
+        }
+    }
+
+    // 插入, 2ms
+    public void is(int[] nums) {
+        int len = nums.length;
+        for(int i=1; i< len; i++) {
+            for(int j=i; j >0; j--) {
+                if(nums[j] < nums[j-1]) {
+                    swap(nums, j, j-1);
+                }
+            }
+        }
     }
 
     // 插入排序 2ms
@@ -96,6 +124,32 @@ class Solution {
                     nums[j-1] = tmp;
                 }
             }
+        }
+    }
+    public void qs(int[] nums, int l, int r) {
+        if(l < r) {
+            swap(nums, l, l + (r-l)/2);
+
+            int tmp = nums[l], i = l, j = r;
+            while (i < j) {
+                while (i < j && nums[j] > tmp) {
+                    j--;
+                }
+                if(i < j) {
+                    nums[i] = nums[j];
+                    i++;
+                }
+                while (i < j && nums[i] < tmp) {
+                    i++;
+                }
+                if(i < j) {
+                    nums[j] = nums[i];
+                    j--;
+                }
+                nums[i] = tmp;
+            }
+            qs(nums, l, i-1);
+            qs(nums, i+1, r);
         }
     }
 
@@ -152,7 +206,7 @@ class Solution {
 //      nums[src] = nums[src] ^ nums[dest];
     }
 
-    public void qs(int[] nums, int l, int r) {
+    public void qs2(int[] nums, int l, int r) {
         if(l < r) {
             // 交换首位和中间位置
             swap(nums, l, (l + r) >> 1);

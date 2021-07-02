@@ -40,6 +40,15 @@ public class ClimbingStairs{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int climbStairs(int n) {
+        int f0 = 1, f1 = 1;
+        for(int i =2; i <= n; i++) {
+            int tmp = f0 + f1;
+            f0 = f1;
+            f1 = tmp;
+        }
+        return f1;
+    }
+    public int climbStairs1(int n) {
         int[] stairs = new int[n+1];
         stairs[0]=1;
         stairs[1]=1;
