@@ -99,14 +99,28 @@ class Node {
 class Solution {
 
     public Node connect(Node root) {
-        return connectRecurse(root);
+        connectRecurse(root);
+        return root;
     }
 
-    public Node connectRecurse(Node node) {
+    public void connectRecurse(Node node) {
+        if(node != null) {
+            if(node.left != null) {
+                node.left.next = node.right;
+                connectRecurse(node.left);
+            }
+            if(node.right != null) {
+                node.right.next = node.next == null ? null : node.next.left;
+                connectRecurse(node.right);
+            }
+        }
+    }
+
+    public Node connectRecurse1(Node node) {
         // 递归, 每层处理自己的左右子节点连接, 利用本节点next来处理右子节点的next
         if(node == null)
             return node;
-        
+
         // 子节点处理
         if(node.left != null) {
             node.left.next = node.right;

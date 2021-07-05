@@ -65,8 +65,19 @@ class Solution {
         }
         return buildTreeRecurse(preorder, inorder, inorderMap, 0, preorder.length -1, 0, inorder.length -1);
     }
-
     public TreeNode buildTreeRecurse(int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap, int pl, int pr, int il, int ir) {
+        if(pl > pr) {
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[pl]);
+        int ioIndex = inorderMap.get(node.val);
+        int lNodes = ioIndex - il;
+        node.left  = buildTreeRecurse(preorder, inorder, inorderMap, pl +1, pl + lNodes, il, ioIndex -1);
+        node.right = buildTreeRecurse(preorder, inorder, inorderMap, pl +lNodes +1, pr, ioIndex +1, ir);
+        return node;
+    }
+
+    public TreeNode buildTreeRecurse1(int[] preorder, int[] inorder, Map<Integer, Integer> inorderMap, int pl, int pr, int il, int ir) {
         if(pl > pr) {
             return null;
         }
