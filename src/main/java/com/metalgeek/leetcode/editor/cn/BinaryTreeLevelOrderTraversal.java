@@ -1,28 +1,28 @@
-//给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。 
+//给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
 //
-// 
 //
-// 示例： 
-//二叉树：[3,9,20,null,null,15,7], 
 //
-// 
+// 示例：
+//二叉树：[3,9,20,null,null,15,7],
+//
+//
 //    3
 //   / \
 //  9  20
 //    /  \
 //   15   7
-// 
 //
-// 返回其层序遍历结果： 
 //
-// 
+// 返回其层序遍历结果：
+//
+//
 //[
 //  [3],
 //  [9,20],
 //  [15,7]
 //]
-// 
-// Related Topics 树 广度优先搜索 
+//
+// Related Topics 树 广度优先搜索
 // 👍 871 👎 0
 
 
@@ -36,11 +36,11 @@ import java.util.*;
 public class BinaryTreeLevelOrderTraversal{
   public static void main(String[] args) {
        Solution solution = new BinaryTreeLevelOrderTraversal().new Solution();
-       
+
        long t0 = System.currentTimeMillis();
        // Call solution here
        System.out.println("");
-       
+
        long t1 = System.currentTimeMillis();
        System.out.println("time used " + (t1-t0));
   }
@@ -62,7 +62,32 @@ public class BinaryTreeLevelOrderTraversal{
  */
 class Solution {
     // BFS广度优先搜索 -> Level Order 层序遍历(记录每层的数量n后, 按n内循环一次遍历)
+
     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new LinkedList<>();
+        if(root == null) {
+            return res;
+        }
+
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode node = null;
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            List<Integer> level = new ArrayList<>(stack.size());
+            for(int i = stack.size(); i> 0; i--) {
+                node = stack.pollFirst();
+                level.add(node.val);
+
+                if(node.left != null)
+                    stack.addLast(node.left);
+                if(node.right != null)
+                    stack.addLast(node.right);
+            }
+            res.add(level);
+        }
+        return res;
+    }
+    public List<List<Integer>> levelOrder1(TreeNode root) {
         List<List<Integer>> res = new LinkedList<>();
         Queue<TreeNode> queue = new ArrayDeque<>();
         if(root != null) {

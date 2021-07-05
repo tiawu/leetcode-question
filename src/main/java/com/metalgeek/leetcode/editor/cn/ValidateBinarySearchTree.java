@@ -91,16 +91,17 @@ class Solution {
     public boolean isValidBSTIterate(TreeNode root) {
         Deque<TreeNode> stack = new LinkedList<>();
         TreeNode node = root;
-        int pre = Integer.MIN_VALUE;
+        long pre = Long.MIN_VALUE;
         while(node != null || !stack.isEmpty()) {
             while (node != null) {
                 stack.push(node);
                 node = node.left;
             }
             node = stack.pop();
-            if(node.val < pre) {
+            if(node.val <= pre) {
                 return false;
             }
+            pre = node.val;
             node = node.right;
         }
         return true;
