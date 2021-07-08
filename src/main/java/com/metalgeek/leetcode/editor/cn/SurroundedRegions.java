@@ -56,6 +56,50 @@ class Solution {
             return;
         }
         int m = board.length-1, n = board[0].length -1;
+        for(int j=0; j <= n; j++) {
+            if(board[0][j] == 'O') {
+                dfs(board, 0, j);
+            }
+            if(board[m][j] == 'O') {
+                dfs(board, m, j);
+            }
+        }
+        for(int i=0; i <= m; i++) {
+            if(board[i][0] == 'O') {
+                dfs(board, i, 0);
+            }
+            if(board[i][n] == 'O') {
+                dfs(board, i, n);
+            }
+        }
+        for(int i =0; i <= m; i++) {
+            for(int j=0; j <= n; j++) {
+                if(board[i][j] == 'A') {
+                    board[i][j] = 'O';
+                }else if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+
+    public void dfs(char[][] board, int i, int j) {
+        if(i <0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != 'O') {
+            return;
+        }
+
+        board[i][j] = 'A';
+        dfs(board, i+1, j);
+        dfs(board, i-1, j);
+        dfs(board, i, j+1);
+        dfs(board, i, j-1);
+    }
+
+    public void solve2(char[][] board) {
+        if(board == null || board.length == 0) {
+            return;
+        }
+        int m = board.length-1, n = board[0].length -1;
         for(int i =0; i <= m; i++) {
             if(board[i][0] == 'O') {
                 dfs1(board, i, 0);
@@ -132,7 +176,7 @@ class Solution {
         }
 
     }
-    public void dfs(char[][] board, int i, int j) {
+    public void dfs2(char[][] board, int i, int j) {
         if(i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] != 'O') {
             // 搜索出界, 或当前点位不为O(为X或当前点位为已标记过的位置), 则终止搜索
             return;
