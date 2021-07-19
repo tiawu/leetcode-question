@@ -142,9 +142,29 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        HashMap<Node, Node> map = new HashMap<>();
-        return copyRandomListRecurse(head, map);
+//        HashMap<Node, Node> map = new HashMap<>();
+//        return copyRandomListRecurse(head, map);
+        return copyRandomListIterate(head);
     }
+
+
+    public Node copyRandomListIterate(Node head) {
+        HashMap<Node, Node> map = new HashMap<>();
+        Node node = head;
+        while(node != null) {
+            map.put(node, new Node(node.val));
+            node = node.next;
+        }
+        node = head;
+        while(node != null) {
+            Node newNode = map.get(node);
+            newNode.next = map.get(node.next);
+            newNode.random = map.get(node.random);
+            node = node.next;
+        }
+        return map.get(head);
+    }
+
     public Node copyRandomListRecurse(Node head, HashMap<Node, Node> map) {
         if(head == null) {
             return null;
